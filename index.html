@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cricket Match & Coin Toss</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>🏏 Cricket Match & Coin Toss App</h1>
+
+    <!-- Coin Toss Section -->
+    <div class="section">
+      <h2>🪙 Coin Toss</h2>
+      <div class="coin" id="coin">
+        <div class="side heads">H</div>
+        <div class="side tails">T</div>
+      </div>
+      <button id="tossBtn">Toss Coin</button>
+      <h3 id="tossResult"></h3>
+    </div>
+
+    <!-- Team Name Section -->
+    <div class="section">
+      <h2>📋 Enter Team Names</h2>
+      <div class="team-names">
+        <div class="team">
+          <input type="text" id="teamAName" placeholder="Team A Name">
+        </div>
+        <div class="team">
+          <input type="text" id="teamBName" placeholder="Team B Name">
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Players Section -->
+    <div class="section">
+      <h2>👥 Add Players</h2>
+      <input type="text" id="playerName" placeholder="Player Name">
+      <select id="teamSelect">
+        <option value="A">Team A</option>
+        <option value="B">Team B</option>
+      </select>
+      <button id="addPlayerBtn">Add Player</button>
+    </div>
+
+    <!-- Player Lists -->
+    <div class="section">
+      <h3>Players List</h3>
+      <div class="team-lists">
+        <div>
+          <h4 id="teamAHeading">Team A</h4>
+          <ul id="teamAPlayers"></ul>
+        </div>
+        <div>
+          <h4 id="teamBHeading">Team B</h4>
+          <ul id="teamBPlayers"></ul>
+        </div>
+      </div>
+    </div>
+
+    <button id="startMatchBtn">🚀 Start Match</button>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
