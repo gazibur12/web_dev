@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🏏 2nd Inning Scoreboard</title>
+  <title>🏏 Live Cricket Scoreboard (With Extras & Total)</title>
   <link rel="stylesheet" href="style.css">
   <style>
     table {
@@ -56,186 +56,273 @@
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h1>🏏 2nd Inning Scoreboard</h1>
+  <h1>🏏 1st Inning Scoreboard</h1>
 
-    <h2><span id="teamNameDisplay">Team Name</span></h2>
+  <div style="display: flex; gap: 30px; align-items: flex-start;">
 
-    <!-- Batters Table -->
-    <h3>Batters</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Batter</th>
-          <th>R</th>
-          <th>B</th>
-          <th>4s</th>
-          <th>6s</th>
-          <th>SR</th>
-        </tr>
-      </thead>
-      <tbody id="battersTable">
-        <tr>
-          <td><input type="text" placeholder="Name"></td>
-          <td><input type="number" min="0" value="0" class="b-runs"></td>
-          <td><input type="number" min="0" value="0" class="b-balls"></td>
-          <td><input type="number" min="0" value="0"></td>
-          <td><input type="number" min="0" value="0"></td>
-          <td><input type="number" readonly class="b-sr"></td>
-        </tr>
-      </tbody>
-    </table>
-    <button onclick="addBatterRow()">➕ Add Batter</button>
+    <!-- Left Side: Score Tables -->
+    <div style="flex: 3;">
 
-    <!-- Extras Section -->
-    <div class="extras">
-      <h3>Extras</h3>
-      <button onclick="addExtra('wide')">Wide +1</button>
-      <span id="wideCount">0</span>
-      &nbsp;&nbsp;
-      <button onclick="addExtra('no')">No Ball +1</button>
-      <span id="noCount">0</span>
-      <label style="margin-left:20px;">LB:
-        <input type="number" min="0" value="0" id="lbInput" onchange="updateTotalRuns()">
-      </label>
+      <!-- Team Name Display -->
+      <h2><span id="teamNameDisplay">Team Name</span></h2>
+
+      <!-- Batters Table -->
+      <h3>Batters</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Batter</th>
+            <th>R</th>
+            <th>B</th>
+            <th>4s</th>
+            <th>6s</th>
+            <th>SR</th>
+          </tr>
+        </thead>
+        <tbody id="battersTable">
+          <tr>
+            <td><input type="text" placeholder="Name"></td>
+            <td><input type="number" min="0" value="0" class="b-runs"></td>
+            <td><input type="number" min="0" value="0" class="b-balls"></td>
+            <td><input type="number" min="0" value="0"></td>
+            <td><input type="number" min="0" value="0"></td>
+            <td><input type="number" readonly class="b-sr"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button onclick="addBatterRow()">➕ Add Batter</button>
+
+      <!-- Extras Section -->
+      <div class="extras">
+        <h3>Extras</h3>
+        <button onclick="addExtra('wide')">Wide +1</button>
+        <span id="wideCount">0</span>
+        &nbsp;&nbsp;
+        <button onclick="addExtra('no')">No Ball +1</button>
+        <span id="noCount">0</span>
+        <label style="margin-left:20px;">LB:
+          <input type="number" min="0" value="0" id="lbInput" onchange="updateTotalRuns()">
+        </label>
+        &nbsp;&nbsp;
+<button onclick="addWicket()">Wicket +1</button>
+<span id="wicketCount">0</span>
+
+      </div>
+       <h2><span id="bowlerTeamNameDisplay">Bowling Team</span></h2>
+      <!-- Bowlers Table -->
+      <h3><span id="bowlerTeamNameDisplay">Bowling Team</span> - Bowlers</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Bowler</th>
+            <th>O</th>
+            <th>M</th>
+            <th>R</th>
+            <th>W</th>
+            <th>ECO</th>
+          </tr>
+        </thead>
+        <tbody id="bowlersTable">
+          <tr>
+            <td><input type="text" placeholder="Name"></td>
+            <td><input type="number" min="0" value="0" class="bo-overs"></td>
+            <td><input type="number" min="0" value="0"></td>
+            <td><input type="number" min="0" value="0" class="bo-runs"></td>
+            <td><input type="number" min="0" value="0"></td>
+            <td><input type="number" readonly class="bo-eco"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button onclick="addBowlerRow()">➕ Add Bowler</button>
+
+      <!-- Total Runs -->
+      <div id="totalRuns">Total Runs: 0</div>
+      <button onclick="endInning()" style="padding: 12px 25px; border: none; border-radius: 8px; background-color: #ff9800; color: white; cursor: pointer; margin-top: 10px;">🏁 End Inning</button>
+
     </div>
+    
 
-    <!-- Bowlers Table -->
-    <h3>Bowling Team - Bowlers</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Bowler</th>
-          <th>O</th>
-          <th>M</th>
-          <th>R</th>
-          <th>W</th>
-          <th>ECO</th>
-        </tr>
-      </thead>
-      <tbody id="bowlersTable">
-        <tr>
-          <td><input type="text" placeholder="Name"></td>
-          <td><input type="number" min="0" value="0" class="bo-overs"></td>
-          <td><input type="number" min="0" value="0"></td>
-          <td><input type="number" min="0" value="0" class="bo-runs"></td>
-          <td><input type="number" min="0" value="0"></td>
-          <td><input type="number" readonly class="bo-eco"></td>
-        </tr>
-      </tbody>
-    </table>
-    <button onclick="addBowlerRow()">➕ Add Bowler</button>
+    <!-- Right Side: Team Name Input -->
+    <div style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px;">
+  <h3>🏏 Batting Team</h3>
+  <input type="text" id="teamNameInput" placeholder="Enter Batting Team" oninput="updateTeamName()" style="width: 100%; padding: 8px; font-size: 16px; margin-bottom: 20px;">
 
-    <div id="totalRuns">Total Runs: 0</div>
+  <h3>🎳 Bowling Team</h3>
+  <input type="text" id="bowlerTeamNameInput" placeholder="Enter Bowling Team" oninput="updateBowlerTeamName()" style="width: 100%; padding: 8px; font-size: 16px;">
+</div>
 
-    <button onclick="endMatch()">🎉 End Match & Show Result</button>
+
   </div>
 
+</div>
+
   <script>
-    let wideRuns = 0;
-    let noRuns = 0;
+   let wideRuns = 0;
+let noRuns = 0;
+let wickets = 0;
 
-    function addBatterRow() {
-      const table = document.getElementById("battersTable");
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td><input type="text" placeholder="Name"></td>
-        <td><input type="number" min="0" value="0" class="b-runs"></td>
-        <td><input type="number" min="0" value="0" class="b-balls"></td>
-        <td><input type="number" min="0" value="0"></td>
-        <td><input type="number" min="0" value="0"></td>
-        <td><input type="number" readonly class="b-sr"></td>
-      `;
-      table.appendChild(row);
-      attachBatterListeners();
-    }
+function addBatterRow() {
+  const table = document.getElementById("battersTable");
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td><input type="text" placeholder="Name"></td>
+    <td><input type="number" min="0" value="0" class="b-runs"></td>
+    <td><input type="number" min="0" value="0" class="b-balls"></td>
+    <td><input type="number" min="0" value="0"></td>
+    <td><input type="number" min="0" value="0"></td>
+    <td><input type="number" readonly class="b-sr"></td>
+  `;
+  table.appendChild(row);
+  attachBatterListeners();
+}
 
-    function addBowlerRow() {
-      const table = document.getElementById("bowlersTable");
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td><input type="text" placeholder="Name"></td>
-        <td><input type="number" min="0" value="0" class="bo-overs"></td>
-        <td><input type="number" min="0" value="0"></td>
-        <td><input type="number" min="0" value="0" class="bo-runs"></td>
-        <td><input type="number" min="0" value="0"></td>
-        <td><input type="number" readonly class="bo-eco"></td>
-      `;
-      table.appendChild(row);
-      attachBowlerListeners();
-    }
+function addBowlerRow() {
+  const table = document.getElementById("bowlersTable");
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td><input type="text" placeholder="Name"></td>
+    <td><input type="number" min="0" value="0" class="bo-overs"></td>
+    <td><input type="number" min="0" value="0"></td>
+    <td><input type="number" min="0" value="0" class="bo-runs"></td>
+    <td><input type="number" min="0" value="0"></td>
+    <td><input type="number" readonly class="bo-eco"></td>
+  `;
+  table.appendChild(row);
+  attachBowlerListeners();
+}
 
-    function attachBatterListeners() {
-      const runsInputs = document.querySelectorAll(".b-runs");
-      const ballsInputs = document.querySelectorAll(".b-balls");
-      runsInputs.forEach((input, index) => {
-        input.oninput = () => {
-          updateSR(index);
-          updateTotalRuns();
-        }
-      });
-      ballsInputs.forEach((input, index) => {
-        input.oninput = () => updateSR(index);
-      });
-    }
-
-    function attachBowlerListeners() {
-      const oversInputs = document.querySelectorAll(".bo-overs");
-      const runsInputs = document.querySelectorAll(".bo-runs");
-      oversInputs.forEach((input, index) => {
-        input.oninput = () => updateECO(index);
-      });
-      runsInputs.forEach((input, index) => {
-        input.oninput = () => updateECO(index);
-      });
-    }
-
-    function updateSR(index) {
-      const runs = parseFloat(document.querySelectorAll(".b-runs")[index].value);
-      const balls = parseFloat(document.querySelectorAll(".b-balls")[index].value);
-      const srField = document.querySelectorAll(".b-sr")[index];
-      srField.value = balls > 0 ? ((runs / balls) * 100).toFixed(2) : 0;
-    }
-
-    function updateECO(index) {
-      const runs = parseFloat(document.querySelectorAll(".bo-runs")[index].value);
-      const overs = parseFloat(document.querySelectorAll(".bo-overs")[index].value);
-      const ecoField = document.querySelectorAll(".bo-eco")[index];
-      ecoField.value = overs > 0 ? (runs / overs).toFixed(2) : 0;
-    }
-
-    function addExtra(type) {
-      if (type === "wide") wideRuns++;
-      if (type === "no") noRuns++;
-      document.getElementById("wideCount").innerText = wideRuns;
-      document.getElementById("noCount").innerText = noRuns;
+function attachBatterListeners() {
+  const runsInputs = document.querySelectorAll(".b-runs");
+  const ballsInputs = document.querySelectorAll(".b-balls");
+  runsInputs.forEach((input, index) => {
+    input.oninput = () => {
+      updateSR(index);
       updateTotalRuns();
     }
+  });
+  ballsInputs.forEach((input, index) => {
+    input.oninput = () => updateSR(index);
+  });
+}
 
-    function updateTotalRuns() {
-      let total = 0;
-      document.querySelectorAll(".b-runs").forEach(input => total += parseInt(input.value) || 0);
-      total += parseInt(document.getElementById("lbInput").value) || 0;
-      total += wideRuns + noRuns;
-      document.getElementById("totalRuns").innerText = `Total Runs: ${total}`;
-    }
+function attachBowlerListeners() {
+  const oversInputs = document.querySelectorAll(".bo-overs");
+  const runsInputs = document.querySelectorAll(".bo-runs");
+  oversInputs.forEach((input, index) => {
+    input.oninput = () => updateECO(index);
+  });
+  runsInputs.forEach((input, index) => {
+    input.oninput = () => updateECO(index);
+  });
+}
 
-    function endMatch() {
-      let total = 0;
-      document.querySelectorAll(".b-runs").forEach(input => total += parseInt(input.value) || 0);
-      total += parseInt(document.getElementById("lbInput").value) || 0;
-      total += wideRuns + noRuns;
-      localStorage.setItem("secondInningTotal", total);
-      window.location.href = "match_result.html";
-    }
+function updateSR(index) {
+  const runs = parseFloat(document.querySelectorAll(".b-runs")[index].value);
+  const balls = parseFloat(document.querySelectorAll(".b-balls")[index].value);
+  const srField = document.querySelectorAll(".b-sr")[index];
+  if (balls > 0) {
+    srField.value = ((runs / balls) * 100).toFixed(2);
+  } else {
+    srField.value = 0;
+  }
+}
 
-    // Load batting team name from 1st inning
-    window.onload = () => {
-      const savedName = localStorage.getItem("secondInningTeamName");
-      document.getElementById("teamNameDisplay").innerText = savedName || "Team Name";
-      attachBatterListeners();
-      attachBowlerListeners();
-    }
+function updateECO(index) {
+  const runs = parseFloat(document.querySelectorAll(".bo-runs")[index].value);
+  const overs = parseFloat(document.querySelectorAll(".bo-overs")[index].value);
+  const ecoField = document.querySelectorAll(".bo-eco")[index];
+  if (overs > 0) {
+    ecoField.value = (runs / overs).toFixed(2);
+  } else {
+    ecoField.value = 0;
+  }
+}
+
+function addExtra(type) {
+  if (type === "wide") {
+    wideRuns++;
+    document.getElementById("wideCount").innerText = wideRuns;
+  }
+  if (type === "no") {
+    noRuns++;
+    document.getElementById("noCount").innerText = noRuns;
+  }
+  updateTotalRuns();
+}
+
+function addWicket() {
+  wickets++;
+  document.getElementById("wicketCount").innerText = wickets;
+}
+
+function updateTotalRuns() {
+  let total = 0;
+  const runsInputs = document.querySelectorAll(".b-runs");
+  runsInputs.forEach(input => {
+    total += parseInt(input.value) || 0;
+  });
+  const lb = parseInt(document.getElementById("lbInput").value) || 0;
+  total += lb + wideRuns + noRuns;
+  document.getElementById("totalRuns").innerText = `Total Runs: ${total}`;
+}
+
+function endInning() {
+  let total = 0;
+  const runsInputs = document.querySelectorAll(".b-runs");
+  runsInputs.forEach(input => {
+    total += parseInt(input.value) || 0;
+  });
+  const lb = parseInt(document.getElementById("lbInput").value) || 0;
+  total += lb + wideRuns + noRuns;
+
+  const teamName = document.getElementById("teamNameInput").value || "Team A";
+  const extras = lb + wideRuns + noRuns;
+  const wicketCount = parseInt(document.getElementById("wicketCount").innerText) || 0;
+  const bowlerTeamName = document.getElementById("bowlerTeamNameInput").value || "Bowling Team";
+
+  localStorage.setItem("firstInningTotal", total);
+  localStorage.setItem("firstInningExtras", extras);
+  localStorage.setItem("firstInningWickets", wicketCount);
+  localStorage.setItem("firstInningTeamName", teamName);
+  localStorage.setItem("bowlerTeamName", bowlerTeamName);
+
+  window.location.href = "2nd_inning.html";
+}
+
+function updateTeamName() {
+  const teamName = document.getElementById("teamNameInput").value;
+  localStorage.setItem("teamName", teamName);
+  document.getElementById("teamNameDisplay").innerText = teamName || "Team Name";
+}
+
+function updateBowlerTeamName() {
+  const bowlerTeamName = document.getElementById("bowlerTeamNameInput").value;
+  localStorage.setItem("bowlerTeamName", bowlerTeamName);
+  document.getElementById("bowlerTeamNameDisplay").innerText = bowlerTeamName || "Bowling Team";
+}
+
+window.onload = () => {
+  const savedName = localStorage.getItem("teamName");
+  if (savedName) {
+    document.getElementById("teamNameInput").value = savedName;
+    document.getElementById("teamNameDisplay").innerText = savedName;
+  }
+
+  const savedBowlerName = localStorage.getItem("bowlerTeamName");
+  if (savedBowlerName) {
+    document.getElementById("bowlerTeamNameInput").value = savedBowlerName;
+    document.getElementById("bowlerTeamNameDisplay").innerText = savedBowlerName;
+  }
+};
+
+// Attach listeners to initial rows
+attachBatterListeners();
+attachBowlerListeners();
+
   </script>
+
 </body>
 </html>
